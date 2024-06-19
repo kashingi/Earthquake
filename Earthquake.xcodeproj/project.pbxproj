@@ -13,6 +13,8 @@
 		E4DF81DA2C230335005C91B0 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = E4DF81D92C230335005C91B0 /* Base */; };
 		E4DF81DC2C230336005C91B0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E4DF81DB2C230336005C91B0 /* Assets.xcassets */; };
 		E4DF81DF2C230336005C91B0 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = E4DF81DE2C230336005C91B0 /* Base */; };
+		E4DF81E72C230354005C91B0 /* TableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4DF81E62C230354005C91B0 /* TableModel.swift */; };
+		E4DF81E92C230360005C91B0 /* TableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4DF81E82C230360005C91B0 /* TableController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		E4DF81DB2C230336005C91B0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E4DF81DE2C230336005C91B0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E4DF81E02C230336005C91B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E4DF81E62C230354005C91B0 /* TableModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableModel.swift; sourceTree = "<group>"; };
+		E4DF81E82C230360005C91B0 /* TableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +67,8 @@
 				E4DF81DB2C230336005C91B0 /* Assets.xcassets */,
 				E4DF81DD2C230336005C91B0 /* LaunchScreen.storyboard */,
 				E4DF81E02C230336005C91B0 /* Info.plist */,
+				E4DF81E62C230354005C91B0 /* TableModel.swift */,
+				E4DF81E82C230360005C91B0 /* TableController.swift */,
 			);
 			path = Earthquake;
 			sourceTree = "<group>";
@@ -138,6 +144,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4DF81E92C230360005C91B0 /* TableController.swift in Sources */,
+				E4DF81E72C230354005C91B0 /* TableModel.swift in Sources */,
 				E4DF81D72C230335005C91B0 /* ViewController.swift in Sources */,
 				E4DF81D32C230335005C91B0 /* AppDelegate.swift in Sources */,
 				E4DF81D52C230335005C91B0 /* SceneDelegate.swift in Sources */,
