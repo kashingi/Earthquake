@@ -4,20 +4,19 @@
 //
 //  Created by EMTECH MAC on 20/06/2024.
 //
-
-
 import Foundation
 import Combine
 
 class EarthquakeViewModel: ObservableObject {
     @Published var earthquakes: [Earthquake] = []
     @Published var errorMessage: String?
-
+    
     private let earthquakeService = EarthquakeService()
-    private var cancellables = Set<AnyCancellable>()
-
+    private var cancellables: Set<AnyCancellable> = []
+    
     func fetchEarthquakes() {
         earthquakeService.fetchEarthquakes()
+            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { [weak self] completion in
                 switch completion {
                 case .failure(let error):
@@ -31,3 +30,5 @@ class EarthquakeViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 }
+
+

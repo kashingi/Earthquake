@@ -6,12 +6,11 @@
 //
 
 import Foundation
+import Foundation
 
-struct Earthquake: Identifiable, Codable {
-    let id: String
+struct Earthquake: Codable {
     let place: String
     let magnitude: Double
-    let time: Date
     let latitude: Double
     let longitude: Double
 }

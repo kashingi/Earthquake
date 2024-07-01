@@ -5,7 +5,6 @@
 //  Created by EMTECH MAC on 28/06/2024.
 //
 
-
 import Foundation
 
 struct EarthquakeResponse: Codable {
@@ -27,4 +26,5 @@ struct EarthquakeResponse: Codable {
         }
     }
 }
+
 
