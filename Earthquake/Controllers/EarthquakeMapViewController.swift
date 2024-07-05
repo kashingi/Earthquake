@@ -1,5 +1,5 @@
 
-
+//imports
 import UIKit
 import RxSwift
 import RxCocoa
@@ -12,15 +12,15 @@ class EarthquakeMapViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUI()
-        setupBindings()
+        setupUI()//To be implemented
+        setupBindings()//To be implemented
         viewModel.fetchEarthquakes()
     }
 
     private func setupUI() {
-        view.backgroundColor = .white // Set sky blue background for map view controller
+        view.backgroundColor = .white
         
-        // Add mapView to view hierarchy
+        // Add mapView
         view.addSubview(mapView)
         
         mapView.translatesAutoresizingMaskIntoConstraints = false
@@ -34,6 +34,7 @@ class EarthquakeMapViewController: UIViewController {
     }
 
     private func setupBindings() {
+        
         // Bind the earthquakes data to update the map
         viewModel.earthquakes
             .subscribe(onNext: { [weak self] earthquakes in
@@ -42,6 +43,7 @@ class EarthquakeMapViewController: UIViewController {
             .disposed(by: disposeBag)
     }
 
+    //function to update the map
     private func updateMap(with earthquakes: [Earthquake]) {
         mapView.removeAnnotations(mapView.annotations)
         

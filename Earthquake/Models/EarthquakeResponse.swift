@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+//set response as a model
 struct EarthquakeResponse: Codable {
     let features: [Feature]
 

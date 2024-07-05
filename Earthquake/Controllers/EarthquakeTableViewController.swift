@@ -11,32 +11,34 @@ class EarthquakeTableViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUI()
-        setupBindings()
+        setupUI()//to be implemented
+        setupBindings()//To be implemented
         viewModel.fetchEarthquakes()
     }
 
+    //setupUI() implemented here
     private func setupUI() {
         view.backgroundColor = .blue
         
-        // Configure the title label
+        // Add title to the displayed earthquakes
         titleLabel.text = "Earthquake Distribution"
         titleLabel.font = .systemFont(ofSize: 20, weight: .bold)
         titleLabel.textAlignment = .center
         titleLabel.numberOfLines = 0
         
+        //check for errors and set color to red if any
         errorLabel.textColor = .red
         errorLabel.textAlignment = .center
         errorLabel.isHidden = true
         
         tableView.register(EarthquakeCell.self, forCellReuseIdentifier: EarthquakeCell.identifier)
         
-        // Add subviews to the view hierarchy
+        // Add subviews to the view
         view.addSubview(titleLabel)
         view.addSubview(tableView)
         view.addSubview(errorLabel)
         
-        // Configure constraints
+        
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
         errorLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -56,6 +58,7 @@ class EarthquakeTableViewController: UIViewController {
         ])
     }
 
+    //setupBindings implemented here
     private func setupBindings() {
         // Bind the table view to the earthquakes data
         viewModel.earthquakes
@@ -78,9 +81,9 @@ class EarthquakeTableViewController: UIViewController {
     }
 }
 
-// MARK: - UITableViewDelegate
+
 extension EarthquakeTableViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80 // Example of custom row height
+        return 80
     }
 }

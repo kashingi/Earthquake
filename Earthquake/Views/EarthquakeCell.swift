@@ -12,6 +12,7 @@ class EarthquakeCell: UITableViewCell {
         setupUI()
     }
     
+    //special initializer for creating objects from Interface Builder
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
