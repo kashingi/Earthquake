@@ -1,11 +1,13 @@
 import UIKit
-import Combine
+import RxSwift
+import RxCocoa
 
 class EarthquakeTableViewController: UIViewController {
     private let viewModel = EarthquakeViewModel()
-    private var cancellables: Set<AnyCancellable> = []
+    private let disposeBag = DisposeBag()
     private let tableView = UITableView()
     private let errorLabel = UILabel()
+    private let titleLabel = UILabel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -15,23 +17,36 @@ class EarthquakeTableViewController: UIViewController {
     }
 
     private func setupUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = .blue
+        
+        // Configure the title label
+        titleLabel.text = "Earthquake Distribution"
+        titleLabel.font = .systemFont(ofSize: 20, weight: .bold)
+        titleLabel.textAlignment = .center
+        titleLabel.numberOfLines = 0
+        
         errorLabel.textColor = .red
         errorLabel.textAlignment = .center
         errorLabel.isHidden = true
         
         tableView.register(EarthquakeCell.self, forCellReuseIdentifier: EarthquakeCell.identifier)
-        tableView.dataSource = self
-        tableView.delegate = self
         
+        // Add subviews to the view hierarchy
+        view.addSubview(titleLabel)
         view.addSubview(tableView)
         view.addSubview(errorLabel)
         
+        // Configure constraints
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
         errorLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+            titleLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
+            titleLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
+
+            tableView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16),
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -42,35 +57,30 @@ class EarthquakeTableViewController: UIViewController {
     }
 
     private func setupBindings() {
-        viewModel.$earthquakes
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                self?.tableView.reloadData()
+        // Bind the table view to the earthquakes data
+        viewModel.earthquakes
+            .bind(to: tableView.rx.items(cellIdentifier: EarthquakeCell.identifier, cellType: EarthquakeCell.self)) { row, earthquake, cell in
+                cell.configure(with: earthquake)
             }
-            .store(in: &cancellables)
-
-        viewModel.$errorMessage
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] errorMessage in
+            .disposed(by: disposeBag)
+        
+        // Handle error message display
+        viewModel.errorMessage
+            .subscribe(onNext: { [weak self] errorMessage in
                 self?.errorLabel.text = errorMessage
                 self?.errorLabel.isHidden = errorMessage == nil
-            }
-            .store(in: &cancellables)
+            })
+            .disposed(by: disposeBag)
+        
+        // Set tableView delegate
+        tableView.rx.setDelegate(self)
+            .disposed(by: disposeBag)
     }
 }
 
-extension EarthquakeTableViewController: UITableViewDataSource, UITableViewDelegate {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.earthquakes.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: EarthquakeCell.identifier, for: indexPath) as? EarthquakeCell else {
-            return UITableViewCell()
-        }
-        
-        let earthquake = viewModel.earthquakes[indexPath.row]
-        cell.configure(with: earthquake)
-        return cell
+// MARK: - UITableViewDelegate
+extension EarthquakeTableViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80 // Example of custom row height
     }
 }

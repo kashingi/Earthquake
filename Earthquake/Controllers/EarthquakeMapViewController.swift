@@ -1,16 +1,13 @@
-//
-//  EarthquakeMapViewController.swift
-//  Earthquake
-//
-//  Created by EMTECH MAC on 01/07/2024.
-//
+
+
 import UIKit
-import Combine
+import RxSwift
+import RxCocoa
 import MapKit
 
 class EarthquakeMapViewController: UIViewController {
     private let viewModel = EarthquakeViewModel()
-    private var cancellables: Set<AnyCancellable> = []
+    private let disposeBag = DisposeBag()
     private let mapView = MKMapView()
 
     override func viewDidLoad() {
@@ -21,7 +18,9 @@ class EarthquakeMapViewController: UIViewController {
     }
 
     private func setupUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = .white // Set sky blue background for map view controller
+        
+        // Add mapView to view hierarchy
         view.addSubview(mapView)
         
         mapView.translatesAutoresizingMaskIntoConstraints = false
@@ -35,12 +34,12 @@ class EarthquakeMapViewController: UIViewController {
     }
 
     private func setupBindings() {
-        viewModel.$earthquakes
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] earthquakes in
+        // Bind the earthquakes data to update the map
+        viewModel.earthquakes
+            .subscribe(onNext: { [weak self] earthquakes in
                 self?.updateMap(with: earthquakes)
-            }
-            .store(in: &cancellables)
+            })
+            .disposed(by: disposeBag)
     }
 
     private func updateMap(with earthquakes: [Earthquake]) {

@@ -1,34 +1,25 @@
-//
-//  EarthquakeViewModel.swift
-//  Earthquake
-//
-//  Created by EMTECH MAC on 20/06/2024.
-//
-import Foundation
-import Combine
 
-class EarthquakeViewModel: ObservableObject {
-    @Published var earthquakes: [Earthquake] = []
-    @Published var errorMessage: String?
+
+import Foundation
+import RxSwift
+import RxCocoa
+
+class EarthquakeViewModel {
+    let earthquakes = BehaviorRelay<[Earthquake]>(value: [])
+    let errorMessage = PublishRelay<String?>()
     
     private let earthquakeService = EarthquakeService()
-    private var cancellables: Set<AnyCancellable> = []
+    private let disposeBag = DisposeBag()
     
     func fetchEarthquakes() {
         earthquakeService.fetchEarthquakes()
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { [weak self] completion in
-                switch completion {
-                case .failure(let error):
-                    self?.errorMessage = error.localizedDescription
-                case .finished:
-                    break
-                }
-            }, receiveValue: { [weak self] earthquakes in
-                self?.earthquakes = earthquakes
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] earthquakes in
+                self?.earthquakes.accept(earthquakes)
+            }, onError: { [weak self] error in
+                self?.errorMessage.accept(error.localizedDescription)
             })
-            .store(in: &cancellables)
+            .disposed(by: disposeBag)
     }
 }
-
 

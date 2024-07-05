@@ -7,10 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E44B61AE2C2471FA008D6D77 /* EarthquakeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44B61AD2C2471FA008D6D77 /* EarthquakeTableViewController.swift */; };
 		E44B61B02C24721C008D6D77 /* Earthquake.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44B61AF2C24721C008D6D77 /* Earthquake.swift */; };
 		E44B61B22C247251008D6D77 /* EarthquakeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44B61B12C247251008D6D77 /* EarthquakeService.swift */; };
 		E44B61B42C24727A008D6D77 /* EarthquakeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44B61B32C24727A008D6D77 /* EarthquakeViewModel.swift */; };
+		E458A7A42C37CE1800E315A5 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = E458A7A32C37CE1800E315A5 /* RxCocoa */; };
+		E458A7A62C37CE1800E315A5 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = E458A7A52C37CE1800E315A5 /* RxSwift */; };
+		E458A7A82C37DCC900E315A5 /* EarthquakeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E458A7A72C37DCC900E315A5 /* EarthquakeTableViewController.swift */; };
 		E46650632C32D19400E5283A /* EarthquakeMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46650622C32D19400E5283A /* EarthquakeMapViewController.swift */; };
 		E4BC60D72C2E8C6B00BA32D7 /* EarthquakeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BC60D62C2E8C6B00BA32D7 /* EarthquakeResponse.swift */; };
 		E4BC60DA2C2E930800BA32D7 /* EarthquakeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BC60D92C2E930800BA32D7 /* EarthquakeCell.swift */; };
@@ -23,10 +25,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E44B61AD2C2471FA008D6D77 /* EarthquakeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarthquakeTableViewController.swift; sourceTree = "<group>"; };
 		E44B61AF2C24721C008D6D77 /* Earthquake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Earthquake.swift; sourceTree = "<group>"; };
 		E44B61B12C247251008D6D77 /* EarthquakeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarthquakeService.swift; sourceTree = "<group>"; };
 		E44B61B32C24727A008D6D77 /* EarthquakeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarthquakeViewModel.swift; sourceTree = "<group>"; };
+		E458A7A72C37DCC900E315A5 /* EarthquakeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarthquakeTableViewController.swift; sourceTree = "<group>"; };
 		E46650622C32D19400E5283A /* EarthquakeMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarthquakeMapViewController.swift; sourceTree = "<group>"; };
 		E4BC60D62C2E8C6B00BA32D7 /* EarthquakeResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarthquakeResponse.swift; sourceTree = "<group>"; };
 		E4BC60D92C2E930800BA32D7 /* EarthquakeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarthquakeCell.swift; sourceTree = "<group>"; };
@@ -45,6 +47,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E458A7A62C37CE1800E315A5 /* RxSwift in Frameworks */,
+				E458A7A42C37CE1800E315A5 /* RxCocoa in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -54,8 +58,8 @@
 		E44B61A92C24717F008D6D77 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				E44B61AD2C2471FA008D6D77 /* EarthquakeTableViewController.swift */,
 				E46650622C32D19400E5283A /* EarthquakeMapViewController.swift */,
+				E458A7A72C37DCC900E315A5 /* EarthquakeTableViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -144,6 +148,10 @@
 			dependencies = (
 			);
 			name = Earthquake;
+			packageProductDependencies = (
+				E458A7A32C37CE1800E315A5 /* RxCocoa */,
+				E458A7A52C37CE1800E315A5 /* RxSwift */,
+			);
 			productName = Earthquake;
 			productReference = E4DF81CF2C230335005C91B0 /* Earthquake.app */;
 			productType = "com.apple.product-type.application";
@@ -172,6 +180,9 @@
 				Base,
 			);
 			mainGroup = E4DF81C62C230335005C91B0;
+			packageReferences = (
+				E458A7A22C37CE1800E315A5 /* XCRemoteSwiftPackageReference "RxSwift" */,
+			);
 			productRefGroup = E4DF81D02C230335005C91B0 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -201,6 +212,7 @@
 			files = (
 				E44B61B02C24721C008D6D77 /* Earthquake.swift in Sources */,
 				E4DF81D72C230335005C91B0 /* ViewController.swift in Sources */,
+				E458A7A82C37DCC900E315A5 /* EarthquakeTableViewController.swift in Sources */,
 				E4DF81D32C230335005C91B0 /* AppDelegate.swift in Sources */,
 				E44B61B42C24727A008D6D77 /* EarthquakeViewModel.swift in Sources */,
 				E4BC60DA2C2E930800BA32D7 /* EarthquakeCell.swift in Sources */,
@@ -208,7 +220,6 @@
 				E46650632C32D19400E5283A /* EarthquakeMapViewController.swift in Sources */,
 				E4BC60D72C2E8C6B00BA32D7 /* EarthquakeResponse.swift in Sources */,
 				E44B61B22C247251008D6D77 /* EarthquakeService.swift in Sources */,
-				E44B61AE2C2471FA008D6D77 /* EarthquakeTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -365,7 +376,6 @@
 				INFOPLIST_FILE = Earthquake/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -393,7 +403,6 @@
 				INFOPLIST_FILE = Earthquake/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -431,6 +440,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E458A7A22C37CE1800E315A5 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.7.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E458A7A32C37CE1800E315A5 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E458A7A22C37CE1800E315A5 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		E458A7A52C37CE1800E315A5 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E458A7A22C37CE1800E315A5 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E4DF81C72C230335005C91B0 /* Project object */;
 }
