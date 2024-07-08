@@ -1,9 +1,5 @@
-//
-//  SceneDelegate.swift
-//  Earthquake
-//
-//  Created by EMTECH MAC on 19/06/2024.
-//
+
+
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -15,10 +11,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = UIWindow(windowScene: windowScene)
         
+        // Example Earthquake object (replace with your actual earthquake data)
+        let exampleEarthquake = Earthquake(place: "San Francisco", magnitude: 4.5, latitude: 37.7749, longitude: -122.4194)
+        
         let earthquakeTableViewController = EarthquakeTableViewController()
         earthquakeTableViewController.tabBarItem = UITabBarItem(title: "Earthquakes", image: UIImage(systemName: "list.dash"), tag: 0)
         
-        let earthquakeMapViewController = EarthquakeMapViewController()
+        let earthquakeMapViewController = EarthquakeMapViewController(earthquake: exampleEarthquake)
         earthquakeMapViewController.tabBarItem = UITabBarItem(title: "Map", image: UIImage(systemName: "map"), tag: 1)
         
         let tabBarController = UITabBarController()
@@ -30,3 +29,4 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     // Other lifecycle methods can remain unchanged
 }
+

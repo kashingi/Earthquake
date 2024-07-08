@@ -1,7 +1,10 @@
+
+
 import UIKit
 import RxSwift
 import RxCocoa
 
+/// Table view controller to display a list of earthquakes.
 class EarthquakeTableViewController: UIViewController {
     private let viewModel = EarthquakeViewModel()
     private let disposeBag = DisposeBag()
@@ -11,33 +14,28 @@ class EarthquakeTableViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUI()//to be implemented
-        setupBindings()//To be implemented
+        setupUI()
+        setupBindings()
         viewModel.fetchEarthquakes()
     }
 
-    //setupUI() implemented here
     private func setupUI() {
         view.backgroundColor = .blue
         
-        // Add title to the displayed earthquakes
         titleLabel.text = "Earthquake Distribution"
         titleLabel.font = .systemFont(ofSize: 20, weight: .bold)
         titleLabel.textAlignment = .center
         titleLabel.numberOfLines = 0
         
-        //check for errors and set color to red if any
         errorLabel.textColor = .red
         errorLabel.textAlignment = .center
         errorLabel.isHidden = true
         
         tableView.register(EarthquakeCell.self, forCellReuseIdentifier: EarthquakeCell.identifier)
         
-        // Add subviews to the view
         view.addSubview(titleLabel)
         view.addSubview(tableView)
         view.addSubview(errorLabel)
-        
         
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -58,16 +56,13 @@ class EarthquakeTableViewController: UIViewController {
         ])
     }
 
-    //setupBindings implemented here
     private func setupBindings() {
-        // Bind the table view to the earthquakes data
         viewModel.earthquakes
             .bind(to: tableView.rx.items(cellIdentifier: EarthquakeCell.identifier, cellType: EarthquakeCell.self)) { row, earthquake, cell in
                 cell.configure(with: earthquake)
             }
             .disposed(by: disposeBag)
         
-        // Handle error message display
         viewModel.errorMessage
             .subscribe(onNext: { [weak self] errorMessage in
                 self?.errorLabel.text = errorMessage
@@ -75,15 +70,22 @@ class EarthquakeTableViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
-        // Set tableView delegate
-        tableView.rx.setDelegate(self)
+        tableView.rx.modelSelected(Earthquake.self)
+            .subscribe(onNext: { [weak self] earthquake in
+                self?.navigateToEarthquakeMap(with: earthquake)
+            })
             .disposed(by: disposeBag)
     }
-}
 
+    private func navigateToEarthquakeMap(with earthquake: Earthquake) {
+        let earthquakeMapViewController = EarthquakeMapViewController(earthquake: earthquake)
+        navigationController?.pushViewController(earthquakeMapViewController, animated: true)
+    }
+}
 
 extension EarthquakeTableViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
     }
 }
+

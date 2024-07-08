@@ -1,26 +1,30 @@
 
-//imports
+
 import UIKit
-import RxSwift
-import RxCocoa
 import MapKit
 
+/// View controller to display a map view centered on an earthquake's location.
 class EarthquakeMapViewController: UIViewController {
-    private let viewModel = EarthquakeViewModel()
-    private let disposeBag = DisposeBag()
+    private let earthquake: Earthquake
     private let mapView = MKMapView()
+
+    init(earthquake: Earthquake) {
+        self.earthquake = earthquake
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUI()//To be implemented
-        setupBindings()//To be implemented
-        viewModel.fetchEarthquakes()
+        setupUI()
     }
 
     private func setupUI() {
         view.backgroundColor = .white
         
-        // Add mapView
         view.addSubview(mapView)
         
         mapView.translatesAutoresizingMaskIntoConstraints = false
@@ -31,34 +35,14 @@ class EarthquakeMapViewController: UIViewController {
             mapView.rightAnchor.constraint(equalTo: view.rightAnchor),
             mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-    }
-
-    private func setupBindings() {
         
-        // Bind the earthquakes data to update the map
-        viewModel.earthquakes
-            .subscribe(onNext: { [weak self] earthquakes in
-                self?.updateMap(with: earthquakes)
-            })
-            .disposed(by: disposeBag)
-    }
-
-    //function to update the map
-    private func updateMap(with earthquakes: [Earthquake]) {
-        mapView.removeAnnotations(mapView.annotations)
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = CLLocationCoordinate2D(latitude: earthquake.latitude, longitude: earthquake.longitude)
+        annotation.title = earthquake.place
+        annotation.subtitle = "Magnitude: \(earthquake.magnitude)"
         
-        let annotations = earthquakes.map { earthquake -> MKPointAnnotation in
-            let annotation = MKPointAnnotation()
-            annotation.coordinate = CLLocationCoordinate2D(latitude: earthquake.latitude, longitude: earthquake.longitude)
-            annotation.title = earthquake.place
-            annotation.subtitle = "Magnitude: \(earthquake.magnitude)"
-            return annotation
-        }
-        
-        mapView.addAnnotations(annotations)
-        
-        if let firstAnnotation = annotations.first {
-            mapView.setRegion(MKCoordinateRegion(center: firstAnnotation.coordinate, span: MKCoordinateSpan(latitudeDelta: 10, longitudeDelta: 10)), animated: true)
-        }
+        mapView.addAnnotation(annotation)
+        mapView.setRegion(MKCoordinateRegion(center: annotation.coordinate, span: MKCoordinateSpan(latitudeDelta: 10, longitudeDelta: 10)), animated: true)
     }
 }
+
